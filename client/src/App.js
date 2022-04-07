@@ -4,9 +4,11 @@ import './App.css';
 import AddProduct from './pages/AddProduct';
 import DetailPage from './pages/DetailPage';
 import UpdateProduct from './pages/UpdateProduct';
+import ProductContextProvider from './context/ProductContext';
 
 function App() {
   return (
+    <ProductContextProvider>
     <Router>
       <Routes>
         <Route  path='/' element={<MainPage />}/>
@@ -15,6 +17,7 @@ function App() {
         <Route  path='/update/:id' element={<UpdateProduct />}/>
       </Routes>
     </Router>
+    </ProductContextProvider>
   );
 }
 
