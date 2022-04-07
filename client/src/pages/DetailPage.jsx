@@ -11,7 +11,7 @@ const DetailPage = () => {
     const navigate = useNavigate();
     const { products, deleteProduct } = useContext(ProductContext);
 
-    const deleteItem = (id) => {
+    const deleteItem = () => {
         deleteProduct(id);
         navigate('/')
     }
@@ -36,7 +36,7 @@ const DetailPage = () => {
                 </Card.Body>
                 <Card.Body style={{display:'flex', justifyContent:'center'}}>
                     <Button style={{marginRight:'10px'}}><Link style={{textDecoration:'none', color:'white'}} to={`/update/${product.id}`}>Update</Link></Button>
-                    <Button onClick={() => deleteItem(product.id)} style={{marginLeft:'10px'}}>Delete</Button>
+                    <Button onClick={() => deleteItem()} style={{marginLeft:'10px'}}>Delete</Button>
                 </Card.Body>
             </Card>
         </>

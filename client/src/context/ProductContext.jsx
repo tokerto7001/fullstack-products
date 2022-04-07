@@ -43,9 +43,25 @@ const ProductContextProvider = (props) => {
         const newProducts = products.filter((el) =>  el.id != id);
         setProducts(newProducts);
     }
+    
+    const addProduct = (name, price, category) => {
+        products.push({name : name, price : price, category: category, id : Math.ceil(Math.random() * 500)})
+        setProducts(products)
+    };
+
+    const updateProduct = (name, price, category, id) => {
+        products.map((el) => {
+            if(el.id == id){
+                el.name = name;
+                el.price = price;
+                el.category = category;
+            }
+        })
+        setProducts(products)
+    }
 
     return (
-        <ProductContext.Provider value={{products, deleteProduct}}>
+        <ProductContext.Provider value={{products, deleteProduct, addProduct, updateProduct}}>
             {props.children}
         </ProductContext.Provider>
     )
