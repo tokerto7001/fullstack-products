@@ -2,12 +2,12 @@ import { useEffect, useState, useContext } from "react";
 import { FormControl, InputGroup, Button, Form } from "react-bootstrap";
 import { ProductContext } from "../context/ProductContext";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 
 const UpdateProduct = () => {
 
     const [ inputs, setInputs ] = useState({name : '', price : '', category : ''});
-    const { products, updateProduct } = useContext(ProductContext);
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -19,17 +19,20 @@ const UpdateProduct = () => {
         setInputs({...inputs, [name] : e.target.value})
     }
 
-    const updateItem = (e) => {
-        e.preventDefault();
-        const { name, price, category } = inputs;
-        updateProduct(name, price, category, id)
-        navigate(`/detail/${id}`);
+    const updateProduct = () => {
+        axios.patch(`/products/product/${id}`, inputs)
+        .then(res => navigate(`/detail/${id}`))
+        .catch(err => console.log(err))
+    }
+
+    const getProduct = () => {
+        axios.get(`/products/product/${id}`)
+        .then(res => setInputs(res.data.data))
+        .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        const currentProduct = products.filter(el => el.id == id)
-        console.log(currentProduct);
-        setInputs(currentProduct[0]);
+        getProduct();
     }, [])
 
     return (
@@ -46,7 +49,7 @@ const UpdateProduct = () => {
                         <option value="vegetable">Vegetable</option>
                         <option value="dairy">Dairy</option>
                     </Form.Select>
-                    <Button onClick={updateItem}>Update</Button>
+                    <Button onClick={updateProduct}>Update</Button>
                 </InputGroup>
 
         </>

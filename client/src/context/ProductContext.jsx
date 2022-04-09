@@ -66,5 +66,4 @@ const ProductContextProvider = (props) => {
         </ProductContext.Provider>
     )
 }
-
-export default ProductContextProvider;
+export default ProductContextProvider

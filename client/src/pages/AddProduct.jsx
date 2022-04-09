@@ -2,25 +2,24 @@ import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
 import { ProductContext } from "../context/ProductContext";
 import { useContext, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const AddProduct = () => {
 
     const inputRef = useRef({ name: '', price: '', category: '' })
-    const { addProduct } = useContext(ProductContext);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         const name = e.target.name
         inputRef.current[name] = e.target.value
     }
-
-
-    const addItem = (e) => {
-        e.preventDefault();
-        const { name, price, category } = inputRef.current;
-        addProduct(name, price, category);
-        navigate('/')
+    
+    const addProduct = () => {
+        axios.post('/products', inputRef.current)
+        .then(res => navigate('/'))
+        .catch(err => console.log(err))
     }
+
 
     return (
         <>
@@ -36,7 +35,7 @@ const AddProduct = () => {
                         <option value="vegetable">Vegetable</option>
                         <option value="dairy">Dairy</option>
                     </Form.Select>
-                    <Button onClick={addItem}>Add</Button>
+                    <Button onClick={addProduct}>Add</Button>
                 </InputGroup>
 
         </>

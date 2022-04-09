@@ -10,6 +10,7 @@ app.use(express.json()); // parsing the request body with the type of raw json
 
 // reject requests without /products end point
 app.use('*', (req, res, next) => {
+  console.log(req.originalUrl);
   if (!req.originalUrl.includes("/products")) return res.status(404).json("Not found");
   next();
 });
