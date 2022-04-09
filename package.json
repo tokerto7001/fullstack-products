@@ -1,0 +1,24 @@
+{
+  "name": "fullstack-products",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"node server\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tokerto7001/fullstack-products.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tokerto7001/fullstack-products/issues"
+  },
+  "homepage": "https://github.com/tokerto7001/fullstack-products#readme",
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  }
+}
