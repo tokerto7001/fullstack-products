@@ -1,4 +1,5 @@
 const Product = require('../models/products');
+const AppError = require('../utils/appError');
 const catchError = require('../utils/catchError');
 
 exports.allProductsControler = (req, res, next) => {
@@ -44,6 +45,10 @@ exports.oneProductController = catchError(async (req, res, next) => {
         const { id } = req.params;
         // if (!id) res.status(400).send({ message: 'Invalid id' });
         const product = await Product.findById(id)
+        if(!product){
+            return next(new AppError('Product not found', 404));
+        }
+
         res.status(200).send({ data: product, message: 'success' });
  
 })
@@ -52,6 +57,9 @@ exports.deleteProductController =catchError(async (req, res, next) => {
         const { id } = req.params;
         // if (!id) res.status(400).send({ message: 'Invalid id' });
         await Product.findByIdAndDelete(id)
+        if(!product){
+            return next(new AppError('Product not found', 404));
+        }
         res.status(200).send({ message: 'success' });
 });
 
@@ -61,6 +69,9 @@ exports.updateProductController = catchError(async (req, res, next) => {
         const { name, price, category } = req.body;
         if (name && price && category && id) {
             const product = await Product.findByIdAndUpdate(id, { name: name, price: price, category: category }, { runValidators: true, new: true });
+            if(!product){
+                return next(new AppError('Product not found', 404));
+            }
             res.status(200).send({ data: product, message: 'success' });
         }
 })

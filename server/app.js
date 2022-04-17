@@ -5,7 +5,6 @@ const errorHandler = require('./utils/errorHandler');
 const app = express();
 
 require('./db/db');
-
 // parse application/x-www-form-urlencoded (parsing the body of the request)
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json()); // parsing the request body with the type of raw json
@@ -34,6 +33,8 @@ app.all('*', (req, res, next) => {
     // Use our own AppError class
     next(new AppError(`Can't find ${req.originalUrl} end point for this server!`, 404));
 })
+
+
 
 // if we use four parameters in func, express automatically knows that it is an error handling middleware
 // app.use((err, req, res, next) => {
